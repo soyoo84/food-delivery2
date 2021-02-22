@@ -9,11 +9,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-  data:
-    mongodb:
-#      host: mongodb.default.svc.cluster.local
-      host: localhost
-    database: mongo-example
   cloud:
     stream:
       kafka:

@@ -9,11 +9,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-  data:
-    mongodb:
-#      host: mongodb.default.svc.cluster.local
-      host: localhost
-    database: mongo-example
   cloud:
     stream:
       kafka:
@@ -29,7 +24,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: app
+          group: pay
           destination: fooddelivery
           contentType: application/json
         event-out:
@@ -41,25 +36,7 @@ logging:
     org.hibernate.type: trace
     org.springframework.cloud: debug
 server:
-  port: 8081
-
-feign:
-  hystrix:
-    enabled: true
-
-# To set thread isolation to SEMAPHORE
-#hystrix:
-#  command:
-#    default:
-#      execution:
-#        isolation:
-#          strategy: SEMAPHORE
-
-hystrix:
-  command:
-    # 전역설정
-    default:
-      execution.isolation.thread.timeoutInMilliseconds: 610
+  port: 8082
 ---
 
 spring:
@@ -79,7 +56,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: app
+          group: pay
           destination: fooddelivery
           contentType: application/json
         event-out:
