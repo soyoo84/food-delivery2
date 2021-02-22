@@ -1,0 +1,15 @@
+#90. run_etc.bat
+cd food-delivery\customer
+pip install --trusted-host pypi.python.org -r requirements.txt
+
+
+when we meet SSLError(SSLCertVerificationError
+https://stackoverflow.com/questions/25981703/pip-install-fails-with-connection-error-ssl-certificate-verify-failed-certi?page=1&tab=votes
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org <package_name>
+
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org Flask
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org Redis
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org kafka-python
+
+more extra tools
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org httpie

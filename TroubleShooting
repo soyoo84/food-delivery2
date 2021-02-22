@@ -1,0 +1,14 @@
+https://github.com/dpkp/kafka-python/issues/1482
+https://blog.stigok.com/2017/12/25/kafkapython-no-broker-available-with-kafka-on-localhost.html
+
+오류 메시지 이며, api_version을 명시 했다고 하는 데...
+Traceback (most recent call last):
+  File "policy-handler.py", line 11, in <module>
+    bootstrap_servers=['localhost:9092'])
+  File "C:\DEV\Tools\Miniconda3\lib\site-packages\kafka\consumer\group.py", line 356, in __init__
+    self._client = KafkaClient(metrics=self._metrics, **self.config)
+  File "C:\DEV\Tools\Miniconda3\lib\site-packages\kafka\client_async.py", line 244, in __init__
+    self.config['api_version'] = self.check_version(timeout=check_timeout)
+  File "C:\DEV\Tools\Miniconda3\lib\site-packages\kafka\client_async.py", line 927, in check_version
+    raise Errors.NoBrokersAvailable()
+kafka.errors.NoBrokersAvailable: NoBrokersAvailable
