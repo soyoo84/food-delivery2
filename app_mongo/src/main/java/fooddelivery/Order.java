@@ -1,13 +1,16 @@
 package fooddelivery;
 
+import javax.persistence.PostPersist;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 
 //https://tinnia.github.io/Portfolio/pjt/everywherescrap/2/
 //@Entity
 //@Table(name="주문_table")
 @Document
-public class Order {
+public class Order extends AbstractMongoEventListener<Object> {
 
     @Id
     //@GeneratedValue(strategy=GenerationType.AUTO)
@@ -17,8 +20,9 @@ public class Order {
     private String 상태;
     private String 가게;
     private Long 가격;
-
-    //@PostPersist
+    
+    
+    @PostPersist
     public void onPostPersist(){
 
         //Following code causes dependency to external APIs

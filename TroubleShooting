@@ -12,3 +12,7 @@ Traceback (most recent call last):
   File "C:\DEV\Tools\Miniconda3\lib\site-packages\kafka\client_async.py", line 927, in check_version
     raise Errors.NoBrokersAvailable()
 kafka.errors.NoBrokersAvailable: NoBrokersAvailable
+
+//for @PostPersist annotation
+https://www.baeldung.com/cascading-with-dbref-and-lifecycle-events-in-spring-data-mongodb
+https://sleeplessinslc.blogspot.com/2012/06/spring-data-mongodb-example.html
