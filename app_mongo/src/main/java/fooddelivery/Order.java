@@ -1,8 +1,5 @@
 package fooddelivery;
 
-//import javax.persistence.Id;
-import javax.persistence.PostPersist;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,7 +18,7 @@ public class Order {
     private String 가게;
     private Long 가격;
 
-    @PostPersist
+    //@PostPersist
     public void onPostPersist(){
 
         //Following code causes dependency to external APIs

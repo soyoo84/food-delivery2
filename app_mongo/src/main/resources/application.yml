@@ -3,6 +3,8 @@ server:
 ---
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   profiles: default
   jpa:
     properties:
@@ -12,8 +14,19 @@ spring:
   data:
     mongodb:
 #      host: mongodb.default.svc.cluster.local
-      host: localhost
+#      host: localhost
+      uri: mongodb://127.0.0.1:27017/mongo-example
     database: mongo-example
+#      host: 127.0.0.1
+#      password: password
+#      username: username
+#      authentication-database: database
+#      database: database
+#  datasource:
+#    driver-class-name: 
+#    url: postgres-url
+#    username: user-name
+#    password: password
   cloud:
     stream:
       kafka:
