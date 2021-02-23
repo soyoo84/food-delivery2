@@ -861,8 +861,7 @@ Request/Response 방식으로 구현하지 않았기 때문에 서비스가 더�
 
 # 헥사고날 아키텍처 다이어그램 신규
     
-![image](screenshots/haxagonal_arch_new.png "신규다이어그램")
-<img src="screenshots/haxagonal_arch_new.png" dalt="신규다이어그램" width="500" height="300" />
+![image](screenshots/haxagonal_arch_new.png "신규다이어그램")/>
 
 - 코드 생성 - http://www.msaez.io/
 - 애저 포털 - http://portal.azure.com
