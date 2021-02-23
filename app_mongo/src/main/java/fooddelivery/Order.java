@@ -1,16 +1,13 @@
 package fooddelivery;
 
-import javax.persistence.PostPersist;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 
 //https://tinnia.github.io/Portfolio/pjt/everywherescrap/2/
 //@Entity
 //@Table(name="주문_table")
 @Document
-public class Order extends AbstractMongoEventListener<Object> {
+public class Order {
 
     @Id
     //@GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,24 +19,24 @@ public class Order extends AbstractMongoEventListener<Object> {
     private Long 가격;
     
     
-    @PostPersist
-    public void onPostPersist(){
-
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        fooddelivery.external.결제이력 결제이력 = new fooddelivery.external.결제이력();
-
-        // this is Context Mapping (Anti-corruption Layer)
-        결제이력.setOrderId(String.valueOf(getId()));
-        if(get가격()!=null)
-            결제이력.set금액(Double.valueOf(get가격()));
-
-        Application.applicationContext.getBean(fooddelivery.external.결제이력Service.class)
-                .결제(결제이력);
-
-
-    }
+    //@PostPersist
+//    public void onPostPersist(){
+//
+//        //Following code causes dependency to external APIs
+//        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+//
+//        fooddelivery.external.결제이력 결제이력 = new fooddelivery.external.결제이력();
+//
+//        // this is Context Mapping (Anti-corruption Layer)
+//        결제이력.setOrderId(String.valueOf(getId()));
+//        if(get가격()!=null)
+//            결제이력.set금액(Double.valueOf(get가격()));
+//
+//        Application.applicationContext.getBean(fooddelivery.external.결제이력Service.class)
+//                .결제(결제이력);
+//
+//
+//    }
 
 
 

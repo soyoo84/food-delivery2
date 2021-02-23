@@ -286,7 +286,7 @@ public interface 결제이력Repository extends PagingAndSortingRepository<결�
 http localhost:8081/orders item="통닭"
 
 # store 서비스의 배달처리
-http localhost:8083/주문처리s orderId=1
+http localhost:8083/주문관리s orderId=1
 
 # 주문 상태 확인
 http localhost:8081/orders/1
