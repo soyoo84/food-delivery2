@@ -16,6 +16,7 @@ public class 주문관리 {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     Long orderId;
     String 배달지주소;
