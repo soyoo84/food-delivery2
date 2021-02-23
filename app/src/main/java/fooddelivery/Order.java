@@ -27,7 +27,7 @@ public class Order {
         // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
         fooddelivery.external.결제이력 결제이력 = new fooddelivery.external.결제이력();
-
+        System.out.println("===========================================");
         // this is Context Mapping (Anti-corruption Layer)
         결제이력.setOrderId(String.valueOf(getId()));
         if(get가격()!=null)
@@ -35,7 +35,8 @@ public class Order {
 
         Application.applicationContext.getBean(fooddelivery.external.결제이력Service.class)
                 .결제(결제이력);
-
+        
+        
 
     }
 
