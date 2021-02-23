@@ -11,15 +11,18 @@ spring:
         - id: app
           uri: http://localhost:8081
           predicates:
-            - Path=/주문/** /메뉴판/**/통합주문상태/**
+            - Path=/orders/**, /주문/**, /메뉴판/**/통합주문상태/**
+#            - Path=/orders/**
         - id: pay
           uri: http://localhost:8082
           predicates:
-            - Path=/결제이력/** 
+            - Path=/결제이력/**,  /결제이력/** 
+#            - Path=/결제이력s/**
         - id: store
           uri: http://localhost:8083
           predicates:
-            - Path=/주문관리/** /주문상세보기/**
+            - Path=/주문관리s/**, /주문관리/**, /주문상세보기/**
+ #           - Path=/주문관리s/**
         - id: customer
           uri: http://localhost:8084
           predicates:

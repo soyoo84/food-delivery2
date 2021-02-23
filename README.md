@@ -25,7 +25,7 @@
     - [오토스케일 아웃](#오토스케일-아웃)
     - [무정지 재배포](#무정지-재배포)
   - [신규 개발 조직의 추가](#신규-개발-조직의-추가)
-- [참고 사이트](#참고사이트)
+- [참고](#참고)
 
 # 서비스 시나리오
 
@@ -856,7 +856,34 @@ Request/Response 방식으로 구현하지 않았기 때문에 서비스가 더�
         **/
     }
 ```
-# 참고사이트
-코드 생성 - http://www.msaez.io/
-애저 포털 - http://portal.azure.com
-도커허브 - https://hub.docker.com/?ref=login
+
+# 참고
+- 코드 생성 - http://www.msaez.io/
+- 애저 포털 - http://portal.azure.com
+- 도커허브 - https://hub.docker.com/?ref=login
+
+- 각 마이크로 서비스의 REST API 의 테스트
+```
+# app 서비스의 주문처리
+http localhost:8081/orders item="통닭"
+
+# store 서비스의 배달처리
+http localhost:8083/주문관리s orderId=1
+
+# 주문 상태 확인
+http localhost:8081/orders/1
+
+```
+
+- 게이트웨이를 통한 REST API 의 테스트
+```
+# app 서비스의 주문처리
+http localhost:8088/orders item="통닭"
+
+# store 서비스의 배달처리
+http localhost:8088/주문관리s orderId=1
+
+# 주문 상태 확인
+http localhost:8088/orders/1
+
+```
