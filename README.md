@@ -939,3 +939,11 @@ http localhost:8088/orders/1
 	
 	    }
 ```
+
+# 도커 설정
+    
+![image](screenshots/도커설정_General.png "도커설정_General")
+
+![image](screenshots/도커설정_Resource.png "도커설정_General")
+
+![image](screenshots/도커설정_Kubenetes.png "도커설정_General")

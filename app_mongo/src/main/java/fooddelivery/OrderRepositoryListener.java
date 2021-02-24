@@ -54,8 +54,6 @@ public class OrderRepositoryListener extends AbstractMongoEventListener<Order>  
 	        Application.applicationContext.getBean(fooddelivery.external.결제이력Service.class)
 	                .결제(결제이력);
 		}
-
-
     }
 	
 	@Override

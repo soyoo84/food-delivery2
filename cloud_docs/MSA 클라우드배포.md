@@ -3,7 +3,7 @@
 주요 정보는 다음과 같습니다.
 리소스그룹 : TobeeRCGroup
 Kubernetes 클러스터 : TobeeCluster
-컨테이너 레지스트리 : TobeeReg
+컨테이너 레지스트리 : tobeereg
 
 애저 로그인
 
@@ -15,8 +15,17 @@ az login --use-device-code --debug
 
 az aks get-credentials --resource-group TobeeRCGroup --name TobeeCluster
 az aks get-credentials -g TobeeRCGroup -n TobeeCluster
+
+az aks get-credentials -g TobeeRCGroup -n TobeeCluster
+
 확인 해보기
 kubectl config current-context
+
+Azure 컨테이너 레지스트리 로그인
+az acr login --name tobeereg
+
+Azure 클러스터(AKS)에 레지스트리(ACR) 붙이기
+az aks update -n TobeeCluster -g TobeeRCGroup --attach-acr tobeereg
 
 
 마이크로서비스 구성 및 설정
@@ -51,6 +60,8 @@ batch\setenv.bat 파일을 자신의 환경에 맞도록 수정합니다.
 
 소스 빌드 및 패키징
 batch 폴더에서 시작합니다.
+
+```
 setenv.bat
 cd app
 mvn clean package -Dmaven.test.skip=true
@@ -61,26 +72,95 @@ mvn clean package -Dmaven.test.skip=true
 cd ..\gateway
 mvn clean package -Dmaven.test.skip=true
 
+cd ..\pay
+mvn clean package -Dmaven.test.skip=true
+
 cd ..\store
 mvn clean package -Dmaven.test.skip=true
 
 cd ..\store_maria
 mvn clean package -Dmaven.test.skip=true
-
+```
 
 도커 이미지 빌드 및 레지스트리에 업로드 하기
+
 두가지 방식으로 진행 될 수 있음
 
-```
-az acr build --registry [acr-registry-name] --image [acr-registry-name].azurecr.io/products:latest .
-```
+az acr build --registry [acr-registry-name] --image [acr-registry-name].azurecr.io/products:v1 .
 
-```
-docker build -t [acr-registry-name].azurecr.io/nginx-green:v1 .
+혹은
+
+docker build -t [acr-registry-name].azurecr.io/products:v1 .
 docker images
 az acr login --name [acr-registry-name]
-docker push [acr-registry-name].azurecr.io/nginx-green:v1
+docker push [acr-registry-name].azurecr.io/products:v1
+
+Dockerfile 있는 위치에서 다음 명령어로 진행 하면 됩니다.
+
+
 ```
+cd app
+az acr build --registry tobeereg --image tobeereg.azurecr.io/app:v1 .
+
+cd ../gateway
+az acr build --registry tobeereg --image tobeereg.azurecr.io/gateway:v1 .
+
+cd ../pay
+az acr build --registry tobeereg --image tobeereg.azurecr.io/pay:v1 .
+
+cd ../store
+az acr build --registry tobeereg --image tobeereg.azurecr.io/store:v1 .
+```
+
+몽고DB와 마리아DB가 필요한 두개의 마이크로서비스는 일단 뒤로 미룹니다.
+```
+cd ../app_mongo
+az acr build --registry TobeeReg --image TobeeReg.azurecr.io/app:v1 .
+
+cd ../store_maria
+az acr build --registry TobeeReg --image TobeeReg.azurecr.io/app:v1 .
+```
+
+디플로이먼트 및 서비스 적용
+```
+cd ../../app/kubernetes
+kubectl apply -f deployment.yml
+kubectl apply -f service.yaml
+
+cd ../../pay/kubernetes
+kubectl apply -f deployment.yml
+kubectl apply -f service.yaml
+
+cd ../../store/kubernetes
+kubectl apply -f deployment.yml
+kubectl apply -f service.yaml
+
+cd ../../gateway/kubernetes
+kubectl apply -f deployment.yml
+kubectl apply -f service.yaml
+```
+
+만약, 오류가 발생 했을 경우 조치 사항 3가지
+
+우선 POD를 조회 한단.
+kubectl get pod
+
+- describe 를 사용
+
+kubectl describe pod my-nginx-76cbb98994-hcdlz
+
+- 로그 확인
+kubectl logs my-nginx-7477855886-jmcg6
+
+- 컨테이너 내부 확인
+kubectl exec -it my-nginx-7477855886-2grg2 -- /bin/bash
+
+유용한 검색
+kubectl get all --namespace=kafka
+
+
+아파치카프카 클러스터
+https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/hdinsight/kafka/apache-kafka-get-started.md
 
 참고.
 https://blog.naver.com/tommybee/222242516826

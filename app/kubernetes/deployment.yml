@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: app
-          image: username/app:latest
+#          image: username/app:latest
+          image: tobeereg.azurecr.io/app:v1
           ports:
             - containerPort: 8080
           readinessProbe:
