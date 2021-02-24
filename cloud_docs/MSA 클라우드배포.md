@@ -140,7 +140,7 @@ cd ../store_maria
 az acr build --registry TobeeReg --image TobeeReg.azurecr.io/app:v1 .
 ```
 
-디플로이먼트 및 서비스 적용
+- 디플로이먼트 및 서비스 적용
 ```
 cd ../../app/kubernetes
 kubectl apply -f deployment.yml
@@ -159,7 +159,7 @@ kubectl apply -f deployment.yml
 kubectl apply -f service.yaml
 ```
 
-만약, 오류가 발생 했을 경우 조치 사항 3가지
+- 오류가 발생에 대한 조치 사항 3가지
 
 우선 POD를 조회 한 후,
 ```
@@ -186,16 +186,18 @@ kubectl exec -it my-nginx-7477855886-2grg2 -- /bin/bash
 kubectl get all --namespace=kafka
 ```
 
-아파치카프카 클러스터 관련
+- 아파치카프카 클러스터 관련
 
 https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/hdinsight/kafka/apache-kafka-get-started.md
 
 
 
 - 참고 사이트
+
 https://blog.naver.com/tommybee/222242516826
 
 - Trouble-shooting
+
 ```
 로그인 시에 오류가 나서 접속이 안되는 경우
 https://blog.jhnr.ch/2018/05/16/working-with-azure-cli-behind-ssl-intercepting-proxy-server/
