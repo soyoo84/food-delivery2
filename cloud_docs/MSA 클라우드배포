@@ -1,0 +1,92 @@
+클라우드 환경 설정에서 받아온 주요 정보를 사용해서 MSA 를 구성 할 차례입니다.
+
+주요 정보는 다음과 같습니다.
+리소스그룹 : TobeeRCGroup
+Kubernetes 클러스터 : TobeeCluster
+컨테이너 레지스트리 : TobeeReg
+
+애저 로그인
+
+우선 우분투를 실행 하여 애저에 로그인 합니다.
+az login
+혹은
+az login --use-device-code --debug
+로그인 시에 오류가 나서 접속이 안되는 경우
+https://blog.jhnr.ch/2018/05/16/working-with-azure-cli-behind-ssl-intercepting-proxy-server/
+export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=anycontent
+여기까지 하면 주의 메시지 뜸...
+
+
+sudo cp azurepotal.cer /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+
+sudo cp portalofficecom.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+
+sudo cp stamp2loginmicrosoftonlinecom.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+
+export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+export REQUESTS_CA_BUNDLE=/opt/az/lib/python3.6/site-packages/certifi/cacert.pem
+
+
+openssl x509 -inform der -in azurepotal.cer -out azurepotal.pem
+openssl x509 -inform der -in portalofficecom.crt -out portalofficecom.pem
+openssl x509 -inform der -in stamp2loginmicrosoftonlinecom.crt -out stamp2loginmicrosoftonlinecom.pem
+
+다음 파일을 연다
+/opt/az/lib/python3.6/site-packages/certifi/cacert.pem
+위의 pem 파일의 내용을 합친다.
+
+
+https://bluegreencity.github.io/azure/Azure-CLI-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%9C-%EC%97%90%EB%9F%AC%EB%B0%9C%EC%83%9D%ED%96%88%EC%9D%84-%EB%95%8C-%EB%8C%80%EC%B2%98%EB%B2%95/
+https://docs.microsoft.com/ko-kr/cli/azure/install-azure-cli-windows?tabs=azure-cli
+
+/opt/az/lib/python3.6/site-packages/urllib3/connectionpool.py
+
+az aks get-credentials --resource-group TobeeRCGroup --name TobeeCluster
+az aks get-credentials -g TobeeRCGroup -n TobeeCluster
+확인 해보기
+kubectl config current-context
+
+
+마이크로서비스 구성 및 설정
+
+소스 다운로드
+cd D:\DEV\Experiments\CloudLvl2_4
+git clone https://github.com/tommybee-dev/food-delivery2
+
+환경 설정
+batch\setenv.bat 파일을 자신의 환경에 맞도록 수정합니다.
+
+소스 빌드 및 패키징
+batch 폴더에서 시작합니다.
+setenv.bat
+cd app
+mvn clean package
+cd ..\app_mongo
+mvn clean package
+cd ..\gateway
+mvn clean package
+cd ..\store
+mvn clean package
+cd ..\store_maria
+mvn clean package
+
+kubectl 설치
+설치 확인
+kubectl version --client
+설치 되어 있지 않은 경우
+- Kubectl 설치
+ㅇ sudo apt-get update
+ㅇ sudo apt-get install -y kubectl 
+
+AKS 연결 확인
+ㅇ kubectl config current-context
+ㅇ kubectl get all 
+인증서 오류 발생
+kubectl config view --raw -o jsonpath="{.clusters[?(@.name == 'TobeeCluster')].cluster.certificate-authority-data}" | base64 -d | openssl x509 -text | grep -A2 Validity
+az aks create --resource-group TobeeRCGroup --name TobeeCluster --node-count 1 --enable-addons monitoring --generate-ssh-keys
+
+참고.
+https://blog.naver.com/tommybee/222242516826

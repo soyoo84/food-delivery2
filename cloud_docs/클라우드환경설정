@@ -1,0 +1,104 @@
+마이크로소프트애저에 접속하기 위한 환경 설정을 진행 합니다.
+
+사전작업
+파워쉘 창에서
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+컴퓨터를 재시작
+
+다음파일 설치
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+파워쉘을 열고 다음 명령을 입력합니다.
+wsl --set-default-version 2
+
+우분투 배포판 설치
+- 윈도우 스토어 열기
+https://aka.ms/wslstore
+Ubuntu를 선택해 주고 받기를 눌러 줍니다.
+![image](screenshots/우분투설치.png "우분투설치")
+
+- 로그인
+마이크로소프트 로그인 계정이 필요 하네요 
+tommybee@naver.com
+그림. 로그인.png
+조금 기다리면 설치 되고 시작 버튼이 나옵니다.
+![image](screenshots/우분투시작.png "우분투시작") 
+
+- 사용자계정생성
+다음과 같이 사용자계정을 생성해 줍니다.
+![image](screenshots/사용자계정생성.png "사용자계정생성") 
+
+- 설치정보 확인
+윈도우 쉘을 열고,
+다음 명령을 한 번 쳐 봅시다.
+wsl -l -v
+wsl --list --verbose
+
+- 우분투 업데이트
+윈도우 쉘에서 
+wsl
+# Update the repositories and list of the packages available
+sudo apt update
+# Update the system based on the packages installed > the "-y" will approve the change automatically
+sudo apt upgrade -y
+
+도커 데스크탑 설치
+이제 도커 데스크탑을 설치 합니다.
+https://www.docker.com/products/docker-desktop
+
+![image](screenshots/도커설치.png "도커설치") 
+
+시스템을 재부팅 합니다.
+
+우분투에서 Docker Client 설치
+ㅇ sudo apt-get update
+# Install packages to allow apt to use a repository over HTTPS.
+ㅇ sudo apt install apt-transport-https ca-certificates curl software-properties-common
+# Add Docker's official GPG key.
+ㅇ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add
+# Pick the release channel.
+ㅇ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+ㅇ sudo apt update
+# Install the latest version of Docker CE.
+ㅇ sudo apt install docker-ce
+# Allow your user to access the Docker CLI without needing root
+ㅇ sudo usermod -aG docker tommybee
+
+? Linux 계정에 Docker Daemon 환경변수 설정
+ㅇ vi ~/.bashrc
+ㅇ export DOCKER_HOST=tcp://0.0.0.0:2375 # 맨 아래에 환경변수 추가
+ㅇ source ~/.bashrc # Shell 재 실행
+? Docker Setup 확인
+ㅇ $ docker run --name nginx -d -p 80:80 nginx
+ㅇ $ docker images
+ㅇ $ docker container list
+ㅇ 브라우저에서 80포트 접속확인 
+![image](screenshots/도커연동확인.png "도커연동확인") 
+
+
+만약 오류 메시지가
+Cannot connect to the Docker daemon at tcp://127.0.0.1:2375. Is the docker daemon running?
+라면, 다음 부분을 주석 처리하고, 쉘을 다시 실행 해서 실행 해 볼 수 있도록 합니다.
+export DOCKER_HOST=tcp://0.0.0.0:2375
+
+애저 cli 설치
+우분투 상에서 다음 사이트의 내용으로 설치 하였습니다.
+https://docs.microsoft.com/ko-kr/cli/azure/install-azure-cli-linux?pivots=apt&view=azure-cli-latest
+Option 2: Step-by-step installation instructions
+
+애저 로그인 및 환경 설정
+우선 포털 사이트를 로그인 해 봅니다.
+portal.azure.com
+애저서비스정보.png
+주요 정보는 다음과 같습니다.
+리소스그룹 : TobeeRCGroup
+Kubernetes 클러스터 : TobeeCluster
+컨테이너 레지스트리 : TobeeReg
+
+minikube 삭제
+혹시 minikube 가 구동 시에는 삭제 해 줍니다.
+https://duruwawa.tistory.com/16
+
+참고.
+https://blog.naver.com/tommybee/222198868504
+https://azuredays.com/2020/05/27/getting-started-with-azure-cli-wsl-2-windows-terminal/
