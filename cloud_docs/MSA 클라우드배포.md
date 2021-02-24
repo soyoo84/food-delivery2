@@ -1,65 +1,83 @@
-Å¬¶ó¿ìµå È¯°æ ¼³Á¤¿¡¼­ ¹Ş¾Æ¿Â ÁÖ¿ä Á¤º¸¸¦ »ç¿ëÇØ¼­ MSA ¸¦ ±¸¼º ÇÒ Â÷·ÊÀÔ´Ï´Ù.
+í´ë¼ìš°ë“œ í™˜ê²½ ì„¤ì •ì—ì„œ ë°›ì•„ì˜¨ ì£¼ìš” ì •ë³´ë¥¼ ì‚¬ìš©í•´ì„œ MSA ë¥¼ êµ¬ì„± í•  ì°¨ë¡€ì…ë‹ˆë‹¤.
 
-ÁÖ¿ä Á¤º¸´Â ´ÙÀ½°ú °°½À´Ï´Ù.
-¸®¼Ò½º±×·ì : TobeeRCGroup
-Kubernetes Å¬·¯½ºÅÍ : TobeeCluster
-ÄÁÅ×ÀÌ³Ê ·¹Áö½ºÆ®¸® : tobeereg
+ì£¼ìš” ì •ë³´ëŠ” ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤.
 
-¾ÖÀú ·Î±×ÀÎ
+```
+ë¦¬ì†ŒìŠ¤ê·¸ë£¹ : TobeeRCGroup
+Kubernetes í´ëŸ¬ìŠ¤í„° : TobeeCluster
+ì»¨í…Œì´ë„ˆ ë ˆì§€ìŠ¤íŠ¸ë¦¬ : tobeereg
+```
 
-¿ì¼± ¿ìºĞÅõ¸¦ ½ÇÇà ÇÏ¿© ¾ÖÀú¿¡ ·Î±×ÀÎ ÇÕ´Ï´Ù.
+- ì• ì € ë¡œê·¸ì¸
+
+ìš°ì„  ìš°ë¶„íˆ¬ë¥¼ ì‹¤í–‰ í•˜ì—¬ ì• ì €ì— ë¡œê·¸ì¸ í•©ë‹ˆë‹¤.
+```
 az login
-È¤Àº
+í˜¹ì€
 az login --use-device-code --debug
+```
 
-
+ë‹¤ìŒ ëª…ë ¹ì„ ì‹¤í–‰í•´ì„œ credentialì„ ì–»ìŠµë‹ˆë‹¤.
+```
 az aks get-credentials --resource-group TobeeRCGroup --name TobeeCluster
+or
 az aks get-credentials -g TobeeRCGroup -n TobeeCluster
+```
 
-az aks get-credentials -g TobeeRCGroup -n TobeeCluster
-
-È®ÀÎ ÇØº¸±â
+- í™•ì¸ í•´ë³´ê¸°
 kubectl config current-context
 
-Azure ÄÁÅ×ÀÌ³Ê ·¹Áö½ºÆ®¸® ·Î±×ÀÎ
+- Azure ì»¨í…Œì´ë„ˆ ë ˆì§€ìŠ¤íŠ¸ë¦¬ ë¡œê·¸ì¸
+```
 az acr login --name tobeereg
+```
 
-Azure Å¬·¯½ºÅÍ(AKS)¿¡ ·¹Áö½ºÆ®¸®(ACR) ºÙÀÌ±â
+- Azure í´ëŸ¬ìŠ¤í„°(AKS)ì— ë ˆì§€ìŠ¤íŠ¸ë¦¬(ACR) ë¶™ì´ê¸°
+```
 az aks update -n TobeeCluster -g TobeeRCGroup --attach-acr tobeereg
+```
 
+- ë§ˆì´í¬ë¡œì„œë¹„ìŠ¤ êµ¬ì„± ë° ì„¤ì •
 
-¸¶ÀÌÅ©·Î¼­ºñ½º ±¸¼º ¹× ¼³Á¤
+kubectl ì„¤ì¹˜
 
-kubectl ¼³Ä¡
-¼³Ä¡ È®ÀÎ
+ì„¤ì¹˜ í™•ì¸
+```
 kubectl version --client
-¼³Ä¡ µÇ¾î ÀÖÁö ¾ÊÀº °æ¿ì
-- Kubectl ¼³Ä¡
-¤· sudo apt-get update
-¤· sudo apt-get install -y kubectl 
+```
+ì„¤ì¹˜ ë˜ì–´ ìˆì§€ ì•Šì€ ê²½ìš°
+- Kubectl ì„¤ì¹˜
+```
+sudo apt-get update
+sudo apt-get install -y kubectl 
+```
 
-AKS ¿¬°á È®ÀÎ
-¤· kubectl config current-context
-¤· kubectl get all 
+AKS ì—°ê²° í™•ì¸
+```
+kubectl config current-context
+kubectl get all 
+```
 
 
-
-¼­ºñ½º Á¤¸®ÇÏ±â
+- ì„œë¹„ìŠ¤ ì •ë¦¬í•˜ê¸°
+```
 kubectl delete deploy,service --all
 kubectl delete deploy,service,pod --all
 kubectl delete deploy,service,pod,hpa --all
 kubectl delete pvc --all
+```
 
-
-¼Ò½º ´Ù¿î·Îµå
+- ì†ŒìŠ¤ ë‹¤ìš´ë¡œë“œ
+```
 cd D:\DEV\Experiments\CloudLvl2_4
 git clone https://github.com/tommybee-dev/food-delivery2
+```
 
-È¯°æ ¼³Á¤
-batch\setenv.bat ÆÄÀÏÀ» ÀÚ½ÅÀÇ È¯°æ¿¡ ¸Âµµ·Ï ¼öÁ¤ÇÕ´Ï´Ù.
+- í™˜ê²½ ì„¤ì •
+batch\setenv.bat íŒŒì¼ì„ ìì‹ ì˜ í™˜ê²½ì— ë§ë„ë¡ ìˆ˜ì •í•©ë‹ˆë‹¤.
 
-¼Ò½º ºôµå ¹× ÆĞÅ°Â¡
-batch Æú´õ¿¡¼­ ½ÃÀÛÇÕ´Ï´Ù.
+ì†ŒìŠ¤ ë¹Œë“œ ë° íŒ¨í‚¤ì§•
+batch í´ë”ì—ì„œ ì‹œì‘í•©ë‹ˆë‹¤.
 
 ```
 setenv.bat
@@ -82,20 +100,21 @@ cd ..\store_maria
 mvn clean package -Dmaven.test.skip=true
 ```
 
-µµÄ¿ ÀÌ¹ÌÁö ºôµå ¹× ·¹Áö½ºÆ®¸®¿¡ ¾÷·Îµå ÇÏ±â
+- ë„ì»¤ ì´ë¯¸ì§€ ë¹Œë“œ ë° ë ˆì§€ìŠ¤íŠ¸ë¦¬ì— ì—…ë¡œë“œ í•˜ê¸°
 
-µÎ°¡Áö ¹æ½ÄÀ¸·Î ÁøÇà µÉ ¼ö ÀÖÀ½
-
+ë‘ê°€ì§€ ë°©ì‹ìœ¼ë¡œ ì§„í–‰ ë  ìˆ˜ ìˆìŒ
+```
 az acr build --registry [acr-registry-name] --image [acr-registry-name].azurecr.io/products:v1 .
-
-È¤Àº
-
+```
+í˜¹ì€
+```
 docker build -t [acr-registry-name].azurecr.io/products:v1 .
 docker images
 az acr login --name [acr-registry-name]
 docker push [acr-registry-name].azurecr.io/products:v1
+```
 
-Dockerfile ÀÖ´Â À§Ä¡¿¡¼­ ´ÙÀ½ ¸í·É¾î·Î ÁøÇà ÇÏ¸é µË´Ï´Ù.
+Dockerfile ìˆëŠ” ìœ„ì¹˜ì—ì„œ ë‹¤ìŒ ëª…ë ¹ì–´ë¡œ ì§„í–‰ í•˜ë©´ ë©ë‹ˆë‹¤.
 
 
 ```
@@ -112,7 +131,7 @@ cd ../store
 az acr build --registry tobeereg --image tobeereg.azurecr.io/store:v1 .
 ```
 
-¸ù°íDB¿Í ¸¶¸®¾ÆDB°¡ ÇÊ¿äÇÑ µÎ°³ÀÇ ¸¶ÀÌÅ©·Î¼­ºñ½º´Â ÀÏ´Ü µÚ·Î ¹Ì·ì´Ï´Ù.
+ëª½ê³ DBì™€ ë§ˆë¦¬ì•„DBê°€ í•„ìš”í•œ ë‘ê°œì˜ ë§ˆì´í¬ë¡œì„œë¹„ìŠ¤ëŠ” ì¼ë‹¨ ë’¤ë¡œ ë¯¸ë£¹ë‹ˆë‹¤.
 ```
 cd ../app_mongo
 az acr build --registry TobeeReg --image TobeeReg.azurecr.io/app:v1 .
@@ -121,7 +140,7 @@ cd ../store_maria
 az acr build --registry TobeeReg --image TobeeReg.azurecr.io/app:v1 .
 ```
 
-µğÇÃ·ÎÀÌ¸ÕÆ® ¹× ¼­ºñ½º Àû¿ë
+ë””í”Œë¡œì´ë¨¼íŠ¸ ë° ì„œë¹„ìŠ¤ ì ìš©
 ```
 cd ../../app/kubernetes
 kubectl apply -f deployment.yml
@@ -140,37 +159,48 @@ kubectl apply -f deployment.yml
 kubectl apply -f service.yaml
 ```
 
-¸¸¾à, ¿À·ù°¡ ¹ß»ı ÇßÀ» °æ¿ì Á¶Ä¡ »çÇ× 3°¡Áö
+ë§Œì•½, ì˜¤ë¥˜ê°€ ë°œìƒ í–ˆì„ ê²½ìš° ì¡°ì¹˜ ì‚¬í•­ 3ê°€ì§€
 
-¿ì¼± POD¸¦ Á¶È¸ ÇÑ´Ü.
+ìš°ì„  PODë¥¼ ì¡°íšŒ í•œ í›„,
+```
 kubectl get pod
-
-- describe ¸¦ »ç¿ë
-
+```
+- describe ë¥¼ ì‚¬ìš©í•˜ëŠ” ë°©ë²•
+```
 kubectl describe pod my-nginx-76cbb98994-hcdlz
+```
 
-- ·Î±× È®ÀÎ
+- ë¡œê·¸ë¥¼ í™•ì¸ í•˜ëŠ” ë°©ë²•
+```
 kubectl logs my-nginx-7477855886-jmcg6
+```
 
-- ÄÁÅ×ÀÌ³Ê ³»ºÎ È®ÀÎ
+- ì»¨í…Œì´ë„ˆ ë‚´ë¶€ë¥¼ í™•ì¸í•˜ëŠ” ë°©ë²•
+- 
+```
 kubectl exec -it my-nginx-7477855886-2grg2 -- /bin/bash
+```
 
-À¯¿ëÇÑ °Ë»ö
+- ë„¤ì„ìŠ¤í˜ì´ìŠ¤ ê²€ìƒ‰
+```
 kubectl get all --namespace=kafka
+```
 
+ì•„íŒŒì¹˜ì¹´í”„ì¹´ í´ëŸ¬ìŠ¤í„° ê´€ë ¨
 
-¾ÆÆÄÄ¡Ä«ÇÁÄ« Å¬·¯½ºÅÍ
 https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/hdinsight/kafka/apache-kafka-get-started.md
 
-Âü°í.
+
+
+ì°¸ê³ .
 https://blog.naver.com/tommybee/222242516826
 
 Trouble-shooting
-
-·Î±×ÀÎ ½Ã¿¡ ¿À·ù°¡ ³ª¼­ Á¢¼ÓÀÌ ¾ÈµÇ´Â °æ¿ì
+```
+ë¡œê·¸ì¸ ì‹œì— ì˜¤ë¥˜ê°€ ë‚˜ì„œ ì ‘ì†ì´ ì•ˆë˜ëŠ” ê²½ìš°
 https://blog.jhnr.ch/2018/05/16/working-with-azure-cli-behind-ssl-intercepting-proxy-server/
 export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=anycontent
-¿©±â±îÁö ÇÏ¸é ÁÖÀÇ ¸Ş½ÃÁö ¶ä...
+ì—¬ê¸°ê¹Œì§€ í•˜ë©´ ì£¼ì˜ ë©”ì‹œì§€ ëœ¸...
 
 
 sudo cp azurepotal.cer /usr/local/share/ca-certificates/
@@ -190,9 +220,9 @@ openssl x509 -inform der -in azurepotal.cer -out azurepotal.pem
 openssl x509 -inform der -in portalofficecom.crt -out portalofficecom.pem
 openssl x509 -inform der -in stamp2loginmicrosoftonlinecom.crt -out stamp2loginmicrosoftonlinecom.pem
 
-´ÙÀ½ ÆÄÀÏÀ» ¿¬´Ù
+ë‹¤ìŒ íŒŒì¼ì„ ì—°ë‹¤
 /opt/az/lib/python3.6/site-packages/certifi/cacert.pem
-À§ÀÇ pem ÆÄÀÏÀÇ ³»¿ëÀ» ÇÕÄ£´Ù.
+ìœ„ì˜ pem íŒŒì¼ì˜ ë‚´ìš©ì„ í•©ì¹œë‹¤.
 
 
 https://bluegreencity.github.io/azure/Azure-CLI-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%9C-%EC%97%90%EB%9F%AC%EB%B0%9C%EC%83%9D%ED%96%88%EC%9D%84-%EB%95%8C-%EB%8C%80%EC%B2%98%EB%B2%95/
@@ -200,6 +230,7 @@ https://docs.microsoft.com/ko-kr/cli/azure/install-azure-cli-windows?tabs=azure-
 
 /opt/az/lib/python3.6/site-packages/urllib3/connectionpool.py
 
-ÀÎÁõ¼­ ¿À·ù ¹ß»ı
+ì¸ì¦ì„œ ì˜¤ë¥˜ ë°œìƒ
 kubectl config view --raw -o jsonpath="{.clusters[?(@.name == 'TobeeCluster')].cluster.certificate-authority-data}" | base64 -d | openssl x509 -text | grep -A2 Validity
 az aks create --resource-group TobeeRCGroup --name TobeeCluster --node-count 1 --enable-addons monitoring --generate-ssh-keys
+```
