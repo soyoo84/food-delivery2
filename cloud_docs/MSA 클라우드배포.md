@@ -192,10 +192,10 @@ https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/hdinsight/kafka
 
 
 
-참고.
+- 참고 사이트
 https://blog.naver.com/tommybee/222242516826
 
-Trouble-shooting
+- Trouble-shooting
 ```
 로그인 시에 오류가 나서 접속이 안되는 경우
 https://blog.jhnr.ch/2018/05/16/working-with-azure-cli-behind-ssl-intercepting-proxy-server/
